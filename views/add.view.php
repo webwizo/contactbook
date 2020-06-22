@@ -25,6 +25,11 @@
                 <br>
                 <div class="row">
                     <div class="col-6">
+                        <?php if (isset($message)) : ?>
+                            <div class="alert alert-success">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php endif; ?>
                         <form method="POST">
                             <div class="form-group">
                                 <label for="">Name</label>
