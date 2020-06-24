@@ -22,6 +22,11 @@
         <div class="row">
             <div class="col-12">
                 <h2>Contact Book</h2>
+                <?php if (isset($_GET['added']) && $_GET['added'] === 'yes') : ?>
+                    <div class="alert alert-success">
+                        Your data has been saved.
+                    </div>
+                <?php endif; ?>
                 <a href="add.php">Add a new contact</a>
                 <table class="table table-bordered">
                     <thead>
@@ -35,31 +40,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php /* foreach ($records as $record) { ?>
+                        <?php foreach ($records as $record) { ?>
                             <tr>
                                 <td><?php echo $record["id"]; ?></td>
-                                <td><?php echo $record["name"]; ?></td>
+                                <td><?php echo $record["fullname"]; ?></td>
                                 <td><?php echo $record["email"]; ?></td>
                                 <td><?php echo $record["mobile_number"]; ?></td>
                                 <td>
                                     <img src="<?php echo $record["avatar"]; ?>" />
                                 </td>
                                 <td>
-                                    <?php echo $record["cnic"]; ?>
-                                </td>
-                            </tr>
-                        <?php } */ ?>
-                        <?php for ($i = 0; $i <= count($records) - 1; $i++) { ?>
-                            <tr>
-                                <td><?php echo $records[$i]["id"]; ?></td>
-                                <td><?php echo $records[$i]["name"]; ?></td>
-                                <td><?php echo $records[$i]["email"]; ?></td>
-                                <td><?php echo $records[$i]["mobile_number"]; ?></td>
-                                <td>
-                                    <img src="<?php echo $records[$i]["avatar"]; ?>" />
-                                </td>
-                                <td>
-                                    <?php echo $records[$i]["cnic"]; ?>
+                                    <a href="edit.php?id=<?php echo $record['id']; ?>">Edit</a>
                                 </td>
                             </tr>
                         <?php } ?>

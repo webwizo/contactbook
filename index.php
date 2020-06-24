@@ -1,22 +1,12 @@
 <?php
 
-$records = [
-    [
-        "id" => 1,
-        "name" => "Asif Iqbal",
-        "email" => "webwizo@gmail.com",
-        "mobile_number" => "0321-xxxxxx",
-        "cnic" => "xxxx",
-        "avatar" => "https://picsum.photos/50/50"
-    ],
-    [
-        "id" => 2,
-        "cnic" => "222222",
-        "name" => "Zuhaib",
-        "email" => "zuhaib@gmail.com",
-        "mobile_number" => "0321-xxxxxx",
-        "avatar" => "https://picsum.photos/60/60"
-    ]
-];
+require("config/connection.php");
+
+$sql = "SELECT * FROM records";
+
+$query = $conn->prepare($sql);
+$query->execute();
+
+$records = $query->fetchAll(PDO::FETCH_ASSOC);
 
 include('views/index.view.php');

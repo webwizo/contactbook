@@ -25,18 +25,23 @@
                 <br>
                 <div class="row">
                     <div class="col-6">
+                        <?php if (isset($message)) : ?>
+                            <div class="alert alert-success">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php endif; ?>
                         <form method="POST">
                             <div class="form-group">
                                 <label for="">Name</label>
-                                <input type="text" name="name" class="form-control" id="">
+                                <input type="text" name="name" class="form-control" id="" value="<?php echo $record['fullname']; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Email address</label>
-                                <input type="text" name="email" class="form-control" id="">
+                                <input type="text" name="email" class="form-control" id="" value="<?php echo $record['email']; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Mobile Number</label>
-                                <input type="text" name="mobile_number" class="form-control" id="">
+                                <input type="text" name="mobile_number" class="form-control" id="" value="<?php echo $record['mobile_number']; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Avatar</label>

@@ -17,6 +17,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $message = null;
 
+    
     try {
         $query = $conn->prepare($sql);
         // $query->execute();
@@ -29,6 +30,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
             ':updated_at' => $now
         ]);
         $message = "Your record has been added.";
+
+        header("Location: index.php?added=yes");
+        exit;
     } catch (PDOException $ex) {
         die($ex->getMessage());
     }
