@@ -1,6 +1,13 @@
 <?php
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // print_r($_FILES['avatar']);
+    
+    // $filename = md5($_FILES['avatar']['name'] . time());
+    // echo $filename;
+
+
     require("config/connection.php");
 
     $name = $_POST['name'];
@@ -17,6 +24,13 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $message = null;
 
+    $filename = "";
+
+    if ($_FILES['avatar']['error'] === 0) {
+        $fileinfo = pathinfo($_FILES['avatar']['name']);
+        $filename = md5($fileinfo['basename'] . time()) . '.' . $fileinfo['extension'];
+        move_uploaded_file($_FILES['avatar']['tmp_name'], 'uploads/' . $filename);
+    }
     
     try {
         $query = $conn->prepare($sql);
@@ -25,7 +39,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
             ':fullname' => $name,
             ':email' => $email,
             ':mobile_number' => $mobile_number,
-            ':avatar' => $avatar,
+            ':avatar' => $filename,
             ':created_at' => $now,
             ':updated_at' => $now
         ]);
@@ -34,6 +48,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: index.php?added=yes");
         exit;
     } catch (PDOException $ex) {
+        if ($_FILES['avatar']['error'] === 0) {
+            unlink("uploads/" . $filename);
+        }
         die($ex->getMessage());
     }
 }

@@ -27,35 +27,53 @@
                         Your data has been saved.
                     </div>
                 <?php endif; ?>
+
+                <?php if (isset($_GET['deleted']) && $_GET['deleted'] === 'yes') : ?>
+                    <div class="alert alert-success">
+                        Your record has been deleted.
+                    </div>
+                <?php endif; ?>
                 <a href="add.php">Add a new contact</a>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>S. No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Mobile Number</th>
-                            <th>Avatar</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($records as $record) { ?>
+
+                <?php if (count($records) > 0) : ?>
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
-                                <td><?php echo $record["id"]; ?></td>
-                                <td><?php echo $record["fullname"]; ?></td>
-                                <td><?php echo $record["email"]; ?></td>
-                                <td><?php echo $record["mobile_number"]; ?></td>
-                                <td>
-                                    <img src="<?php echo $record["avatar"]; ?>" />
-                                </td>
-                                <td>
-                                    <a href="edit.php?id=<?php echo $record['id']; ?>">Edit</a>
-                                </td>
+                                <th>S. No</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile Number</th>
+                                <th>Avatar</th>
+                                <th>Actions</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($records as $record) { ?>
+                                <tr>
+                                    <td><?php echo $record["id"]; ?></td>
+                                    <td><?php echo $record["fullname"]; ?></td>
+                                    <td><?php echo $record["email"]; ?></td>
+                                    <td><?php echo $record["mobile_number"]; ?></td>
+                                    <td>
+                                        <?php if (empty($record['avatar'])) : ?>
+                                            <img src="assets/images/default-avatar.jpg" width="100" />
+                                        <?php else : ?>
+                                            <img src="uploads/<?php echo $record["avatar"]; ?>" width="100" />
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="edit.php?id=<?php echo $record['id']; ?>">Edit</a> &nbsp;
+                                        <a href="delete.php?id=<?php echo $record['id']; ?>">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <div class="alert alert-info">
+                        no record found
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

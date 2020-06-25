@@ -25,7 +25,7 @@
                 <br>
                 <div class="row">
                     <div class="col-6">
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="">Name</label>
                                 <input type="text" name="name" class="form-control" id="">
@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Avatar</label>
-                                <input type="file" name="avatar" id="">
+                                <input type="file" name="avatar" id="" accept="image/*">
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
